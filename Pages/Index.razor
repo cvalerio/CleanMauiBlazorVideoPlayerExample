@@ -11,13 +11,21 @@ Welcome to your new app.
 
 <button @onclick="PlayLocal">Play local</button>
 
+<button @onclick="PlayLocalWithPrefetch">Play local with prefetch</button>
+
 <button @onclick="PlayRemote">Play remote</button>
+
 
 @functions {
 
   protected async Task PlayLocal()
   {
     await JSRuntime.InvokeVoidAsync("videoManager.playLocal", new[] { "theVideo" });
+  }
+
+  protected async Task PlayLocalWithPrefetch()
+  {
+    await JSRuntime.InvokeVoidAsync("videoManager.playLocalWithPrefetch", new[] { "theVideo" });
   }
 
   protected async Task PlayRemote()
