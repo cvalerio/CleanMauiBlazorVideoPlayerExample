@@ -1,0 +1,36 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<video muted autoplay playsinline id="theVideo" controls></video>
+
+<button @onclick="PlayLocal">Play local</button>
+
+<button @onclick="PlayRemote">Play remote</button>
+
+@functions {
+
+  protected async Task PlayLocal()
+  {
+    await JSRuntime.InvokeVoidAsync("videoManager.playLocal", new[] { "theVideo" });
+  }
+
+  protected async Task PlayRemote()
+  {
+    await JSRuntime.InvokeVoidAsync("videoManager.playRemote", new[] { "theVideo" });
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      await JSRuntime.InvokeVoidAsync("videoManager.init", new[] { "theVideo" });
+    }
+    await base.OnAfterRenderAsync(firstRender);
+  }
+}
